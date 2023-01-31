@@ -18,6 +18,13 @@ const App = () => {
         dispatch(getPosts());
     }, [dispatch]);
 
+    // When currentId state is changed through the setCurrentId from the Form or Post
+    // this will dispatch the getPost() action to ensure that fresh data is retreieved in each state change.
+
+    // useEffect(() => {
+    //     dispatch(getPosts());
+    // }, [currentId, dispatch]);
+
     return (
         <Container maxWidth="lg">
             <AppBar className={classes.appBar} position='static' color='inherit'>
