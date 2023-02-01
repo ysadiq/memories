@@ -11,7 +11,7 @@ import { createPost, updatePost } from '../../redux/actions/posts';
 const Form = ({ currentId, setCurrentId }) => {
     const [postData, setPostData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: ''});
     // fetching data from posts(state)
-    const post = useSelector((state) => currentId ? state.posts.find((p) => p._id == currentId) : null );
+    const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null );
     const classes = useStyles();
     const dispatch = useDispatch();
 
