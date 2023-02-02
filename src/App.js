@@ -5,7 +5,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 
 import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/Home';
-import Auth from './Auth/Auth';
+import Auth from './components/Auth/Auth';
 
 const App = () => {
     return (
