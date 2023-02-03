@@ -12,8 +12,8 @@ const Form = ({ currentId, setCurrentId }) => {
     const [postData, setPostData] = useState({ title: '', message: '', tags: '', selectedFile: ''});
     // fetching data from posts(state)
     const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null );
-    const classes = useStyles();
     const dispatch = useDispatch();
+    const classes = useStyles();
     const user = JSON.parse(localStorage.getItem('profile'));
 
     useEffect(() => {
