@@ -50,7 +50,7 @@ const Auth = () => {
     const result = jwt_decode(res?.credential);
 
     try {
-        dispatch({ type: 'AUTH', data: { result }});
+        dispatch({ type: 'AUTH', data: { result, token: res?.credential }});
 
         // Redirect to homepage
         history.push('/');
