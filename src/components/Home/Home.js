@@ -44,18 +44,7 @@ const Home = () => {
         } else {
             history.push('/');
         }
-    }
-    useEffect(() => {
-        dispatch(getPosts());
-    }, [currentId, dispatch]);
-    
-    // When currentId state is changed through the setCurrentId from the Form or Post
-    // this will dispatch the getPost() action to ensure that fresh data is retreieved in each state change.
-    
-    // useEffect(() => {
-        //     dispatch(getPosts());
-        // }, [currentId, dispatch]);
-        
+    }   
         
     return (
         <Grow in>
@@ -86,8 +75,8 @@ const Home = () => {
                             <Button onClick={searchPost} className={classes.searchButton} variant='contained' color='primary'>Search</Button>
                         </AppBar>
                         <Form currentId={currentId} setCurrentId={setCurrentId} />
-                        <Paper elevation={6}>
-                            <Pagination />
+                        <Paper elevation={6} className={classes.pagination}>
+                            <Pagination page={page} />
                         </Paper>
                     </Grid>
                 </Grid>
