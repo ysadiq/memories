@@ -4,13 +4,14 @@ import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import ChipInput from 'material-ui-chip-input';
 
-import { getPosts } from '../../redux/actions/posts';
+import { getPosts, getPostsBySearch } from '../../redux/actions/posts';
 import Pagination from '../Pagination/Pagination';
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
 
 import useStyles from './styles';
 
+const useQuery = () => {
     return new URLSearchParams(useLocation().search);
 }
 
@@ -18,8 +19,11 @@ const Home = () => {
     const [currentId, setCurrentId] = useState(null);
     // define dispatch hook and use useEffect to dispatch the actions
     const dispatch = useDispatch();
+    const query = useQuery();
     const history = useHistory();
     const location = useLocation();
+    const page = query.get('page') || 1;
+    const searchQuery = query.get('searchQuery');
     const classes = useStyles();
     const [search, setSearch] = useState('');
     const [tags, setTags] = useState([]);
@@ -34,8 +38,9 @@ const Home = () => {
     const handleDelete = (tagToDelete) => setTags(tags.filter((tag) => tag !== tagToDelete));
     
     const searchPost = () => {
-        if (search.trim()) {
-            // dispatch -> fetch search post
+        if (search.trim() || tags) {
+            dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
+            history.push(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
         } else {
             history.push('/');
         }
@@ -65,7 +70,7 @@ const Home = () => {
                                 name='search'
                                 variant='outlined'
                                 label='Search Memories'
-                                onKeyDown={() => handleKeyDown()}
+                                onKeyDown={(e) => handleKeyDown(e)}
                                 fullWidth
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)} 
