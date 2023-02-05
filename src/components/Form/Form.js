@@ -5,14 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import useStyles from './styles';
 import { createPost, updatePost } from '../../redux/actions/posts';
-
-// GET CURRENT POST ID
+import { useHistory } from 'react-router-dom';
 
 const Form = ({ currentId, setCurrentId }) => {
     const [postData, setPostData] = useState({ title: '', message: '', tags: '', selectedFile: ''});
-    // fetching data from posts(state)
     const post = useSelector((state) => currentId ? state.posts.posts.find((p) => p._id === currentId) : null );
     const dispatch = useDispatch();
+    const history = useHistory();
     const classes = useStyles();
     const user = JSON.parse(localStorage.getItem('profile'));
 
@@ -26,7 +25,8 @@ const Form = ({ currentId, setCurrentId }) => {
         if (currentId) {
             dispatch(updatePost(currentId, { ...postData, name: user?.result?.name}));
         } else {
-            dispatch(createPost({ ...postData, name: user?.result?.name}));
+            dispatch(createPost({ ...postData, name: user?.result?.name}, history));
+            history.push('/posts/${}');
         }
 
         clear();
