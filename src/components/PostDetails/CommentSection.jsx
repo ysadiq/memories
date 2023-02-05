@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import {Typography, TextField, Button} from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 
@@ -6,12 +6,12 @@ import useStyles from './styles';
 import { commentPost } from '../../redux/actions/posts';
 import posts from '../../redux/reducers/posts';
 
-const CommentSection = ({ post }) => {
+const CommentSection = ({ posts, currentPostId }) => {
+    const post = posts.filter((post) => post._id === currentPostId)[0];
+    const comments = post?.comments
     const classes = useStyles();
     const dispatch = useDispatch();
-    const [comments, setComments] = useState(post?.comments);
     const [comment, setComment] = useState('');
-    const commentRef = useRef();
 
     const user = JSON.parse(localStorage.getItem('profile'));
 
@@ -19,6 +19,7 @@ const CommentSection = ({ post }) => {
         const finalComment = `${user.result.name}: ${comment}`;
 
         dispatch(commentPost(post._id, finalComment));
+        setComment('');
     };
     
     return (
@@ -37,7 +38,7 @@ const CommentSection = ({ post }) => {
                             <Typography gutterBottom variant='h6'>Write a Comment</Typography>
                             <TextField 
                                 fullWidth
-                                rows={4}
+                                minRows={4}
                                 variant='outlined'
                                 label='Comment'
                                 multiline

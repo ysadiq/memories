@@ -34,9 +34,10 @@ const PostDetails = () => {
   }
 
   const recommendedPost = posts.filter(({ _id }) => _id !== post._id);
+  if (posts.length === 0) return 'no posts founds';
 
   const openPost = (_id) => history.push(`/posts/${_id}`);
-  
+
   return (
     <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
       <div className={classes.card}>
@@ -49,7 +50,7 @@ const PostDetails = () => {
           <Divider style={{ margin: '20px 0' }} />
           <Typography variant="body1"><strong>Realtime Chat - coming soon!</strong></Typography>
           <Divider style={{ margin: '20px 0' }} />
-          <CommentSection post={post} />
+          <CommentSection posts={posts} currentPostId={post._id} />
           <Divider style={{ margin: '20px 0' }} />
         </div>
         <div className={classes.imageSection}>
