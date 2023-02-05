@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 
 import useStyles from './styles';
 import { commentPost } from '../../redux/actions/posts';
-import posts from '../../redux/reducers/posts';
 
 const CommentSection = ({ posts, currentPostId }) => {
     const post = posts.filter((post) => post._id === currentPostId)[0];
