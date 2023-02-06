@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from '@material-ui/core';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google'
 
 import PostDetails from './components/PostDetails/PostDetails';
@@ -13,7 +13,7 @@ const App = () => {
 
     return (
         <GoogleOAuthProvider clientId={process.env.REACT_APP_PUBLIC_GOOGLE_CLIENT_API_TOKEN}>
-            <BrowserRouter>
+            <HashRouter>
                 <Container maxWidth="xl">
                     <Navbar />
                     <Switch>
@@ -24,7 +24,7 @@ const App = () => {
                         <Route path='/auth' exact component={() => (!user ? <Auth /> : <Redirect to='/posts' />)} />
                     </Switch>
                 </Container>
-            </BrowserRouter>
+            </HashRouter>
         </GoogleOAuthProvider>
     );
 }
